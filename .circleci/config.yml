@@ -3,6 +3,9 @@ jobs:
   build:
     docker:
       - image: golang:1.8
+    branches:
+      only:
+        - master
     steps:
       - checkout
       - setup_remote_docker
@@ -15,7 +18,7 @@ jobs:
             tar -xz -C /tmp -f /tmp/docker-$VER.tgz
             mv /tmp/docker/* /usr/bin
       - run: |
-          TAG=0.1.$CIRCLE_BUILD_NUM
+          TAG=latest
           docker build -t endocrimes/docker-protobuf:$TAG .
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker push endocrimes/docker-protobuf:$TAG
