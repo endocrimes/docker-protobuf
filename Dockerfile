@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
     && cd protobuf-${PROTOBUF_VERSION} \
     && /go/protobuf-${PROTOBUF_VERSION}/autogen.sh \
     && /go/protobuf-${PROTOBUF_VERSION}/configure \
-    && make -j -C /go/protobuf-${PROTOBUF_VERSION} \
+    && make -C /go/protobuf-${PROTOBUF_VERSION} \
     && make install -C /go/protobuf-${PROTOBUF_VERSION} \
     && cd /go \
 
@@ -28,7 +28,7 @@ RUN apt-get update && apt-get install -y \
     && git clone https://github.com/grpc/grpc -b v${GRPC_VERSION} /go/grpc \
     && cd /go/grpc \
     && git submodule update --init --recursive\
-    && LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib make -j -C /go/grpc \
+    && LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib make -C /go/grpc \
     && make install -C /go/grpc \
 
     # Install grpc-go
